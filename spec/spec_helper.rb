@@ -1,13 +1,15 @@
 
 ENV['RACK_ENV'] = 'test'
 
-require File.join(File.dirname(__FILE__), '..', 'app/app.rb')
+require File.join(File.dirname(__FILE__), '..', './app/app.rb')
 
 require 'capybara'
 require 'capybara/rspec'
+require './app/app'
 require 'rspec'
 require 'database_cleaner'
-require './app/app'
+require './app/models/space'
+require_relative 'web_helper'
 
 Capybara.app = AirBnb
 
@@ -24,19 +26,19 @@ RSpec.configure do |config|
   end
 end
 
-# 
-# RSpec.configure do |config|
-#   config.before(:suite) do
-#     DatabaseCleaner.strategy = :transaction
-#     DatabaseCleaner.clean_with(:truncation)
-#   end
-#
-#   config.before(:each) do
-#     DatabaseCleaner.start
-#   end
-#
-#   config.after(:each) do
-#     DatabaseCleaner.clean
-#   end
-#
-# end
+
+RSpec.configure do |config|
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+end

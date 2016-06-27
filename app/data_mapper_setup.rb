@@ -1,7 +1,7 @@
 require 'data_mapper'
 require 'dm-postgres-adapter'
 
-require_relative 'models/spaces'
+require_relative 'models/space'
 # require_relative 'models/link'
 # require_relative 'models/user'
 

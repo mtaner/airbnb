@@ -1,7 +1,6 @@
 require 'sinatra/base'
 require_relative 'data_mapper_setup'
 
-
 class AirBnb < Sinatra::Base
   get '/' do
     'Hello AirBnb!'
@@ -17,8 +16,10 @@ class AirBnb < Sinatra::Base
   end
 
   post '/myspaces' do
-
+    space = Space.create(property: params[:property])
+    redirect '/myspaces'
   end
+
 
 
 
