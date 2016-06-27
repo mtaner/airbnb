@@ -1,0 +1,9 @@
+<h1>My Spaces</h1>
+
+<ul id='spaces'>
+  <% @spaces.each do |space| %>
+  <li>
+    Space: <%= space.property %>
+  </li>
+  <% end %>
+</ul>
