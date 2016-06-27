@@ -8,7 +8,7 @@ describe User do
   end
   
   it 'stores a user in the database' do
-#    expect(User.all).to have_content(user) 
+    expect(User.first.email).to eq("diamond.oliver@gmail.com") 
   end
 
 end
