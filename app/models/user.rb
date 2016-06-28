@@ -8,7 +8,7 @@ class User
   attr_accessor :password_confirmation
 
   include DataMapper::Resource
-  validates_uniqueness_of :email, message: "Email already exists."
+  validates_uniqueness_of :email
   validates_confirmation_of :password
 
   property :id, Serial
@@ -23,7 +23,7 @@ class User
   def self.authenticate(email, password)
     user = first(email: email)
 
-    if user && (BCrypt::Password.new(user.password_digest) == password)
+    if user && BCrypt::Password.new(user.password_digest) == password
       user
     else
       nil
