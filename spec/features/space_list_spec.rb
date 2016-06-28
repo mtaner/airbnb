@@ -19,4 +19,13 @@ feature 'Adding a space' do
     expect(page).to have_content('Kensington')
   end
 
+
+  scenario 'I can add a descprition to my space, when i post it' do
+    visit '/myspaces/new'
+    fill_in 'name', with: 'sample space name'
+    fill_in 'description', with: 'sample space description'
+    click_button("Add space")
+  end
+
+
 end
