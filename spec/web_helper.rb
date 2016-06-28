@@ -1,5 +1,5 @@
-def add_space
+def add_space( name = 'One bedroom flat in Holborn' )
 	visit '/myspaces/new'
-	fill_in 'property', with: 'One bedroom flat in Holborn'
+	fill_in 'name', with: name
 	click_button("Add space")
 end
