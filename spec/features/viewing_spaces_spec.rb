@@ -1,7 +1,7 @@
 
 feature 'viewing spaces' do
   scenario 'User can view the other spaces' do
-    Space.create(property: 'One bedroom flat in Holborn')
+    Space.create(name: 'One bedroom flat in Holborn')
     visit '/myspaces'
     expect(page.status_code).to eq 200
 
