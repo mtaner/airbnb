@@ -12,5 +12,7 @@ feature 'User login' do
 		expect(current_path).to eq('/myspaces')
 	end
 
+  
+
 
 end

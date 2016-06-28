@@ -12,12 +12,27 @@ feature 'Sign Up' do
     expect{signup}.to_not change(User, :count)
   end
 
+  scenario 'user cannot signup without correct password confirmation' do
+    expect{ signup(password_confirmation: '123')}.not_to change(User, :count)
+    expect(current_path).to eq('/signup')
+  end
+
+  scenario 'user cannot signup with an invalid email address' do
+    expect { signup(email: 'test@test')}.not_to change(User, :count)
+    expect(current_path).to eq('/signup')
+  end
+
+  scenario 'user cannot signup without an email address' do
+    expect { signup(email: nil)}.not_to change(User, :count)
+    expect(current_path).to eq('/signup')
+  end
 end
 
 
-def signup
+def signup(email: 'diamond.oliver2@gmail.com', password: 'waffles', password_confirmation: 'waffles')
   visit('/signup');
-  fill_in('email', with: 'diamond.oliver2@gmail.com')
-  fill_in('password', with: 'waffles')
+  fill_in('email', with: email)
+  fill_in('password', with: password)
+  fill_in('password_confirmation', with: password_confirmation)
   click_button('Submit')
 end
