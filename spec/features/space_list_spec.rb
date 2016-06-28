@@ -38,4 +38,14 @@ feature 'Adding a space' do
     expect(page).to have_content(price)
   end
 
+  scenario 'I can add an availability date range to my space when i post it' do
+    visit '/myspaces/new'
+    fill_in 'name', with: 'sample space name'
+    fill_in 'start_date', with: '2016-10-01'
+    fill_in 'end_date', with: '2016-11-01'
+    click_button("Add space")
+    expect(page).to have_content('From: 2016-10-01')
+    expect(page).to have_content('To: 2016-11-01')
+  end
+
 end

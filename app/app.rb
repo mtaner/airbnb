@@ -12,12 +12,16 @@ class AirBnb < Sinatra::Base
 
   get '/myspaces' do
     @spaces = Space.all
+    p '======================2'
+    p @spaces
     erb :'/spaces/index'
   end
 
   post '/myspaces' do
     # what is this space variable for
     space = Space.create(params)
+p "====================1"
+    p params
     redirect '/myspaces'
   end
 
