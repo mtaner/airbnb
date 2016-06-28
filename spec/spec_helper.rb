@@ -8,6 +8,7 @@ require './app/app'
 require 'rspec'
 require 'database_cleaner'
 require './app/models/space'
+require './app/models/user'
 require_relative 'web_helper'
 
 Capybara.app = AirBnb
