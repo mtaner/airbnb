@@ -11,4 +11,12 @@ feature 'Adding a space' do
     add_space
     expect(page).to have_content('Holborn')
   end
+
+  scenario 'I can add multiple spaces to my page' do
+    add_space
+    add_space('Kensington')
+    expect(page).to have_content('Holborn')
+    expect(page).to have_content('Kensington')
+  end
+
 end
