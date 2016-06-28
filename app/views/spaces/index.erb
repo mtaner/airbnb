@@ -3,7 +3,8 @@
 <ul id='spaces'>
   <% @spaces.each do |space| %>
   <li>
-    Space Name: <%= space.name %>
+    Space Name: <%= space.name %> <BR>
+    Space Description: <%= space.description %>
   </li>
   <% end %>
 </ul>

@@ -16,6 +16,7 @@ class AirBnb < Sinatra::Base
   end
 
   post '/myspaces' do
+    # what is this space variable for
     space = Space.create(params)
     redirect '/myspaces'
   end

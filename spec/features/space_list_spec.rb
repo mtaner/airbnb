@@ -20,11 +20,13 @@ feature 'Adding a space' do
   end
 
 
-  scenario 'I can add a descprition to my space, when i post it' do
+  scenario 'I can add a description to my space, when i post it' do
+    description = 'sample space description'
     visit '/myspaces/new'
     fill_in 'name', with: 'sample space name'
-    fill_in 'description', with: 'sample space description'
+    fill_in 'description', with: description 
     click_button("Add space")
+    expect(page).to have_content(description)
   end
 
 
