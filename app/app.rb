@@ -2,6 +2,10 @@ require 'sinatra/base'
 require_relative 'data_mapper_setup'
 
 class AirBnb < Sinatra::Base
+
+  enable :sessions
+  set :sessions_secret, 'super secret'
+
   get '/' do
     'Hello AirBnb!'
   end
@@ -16,21 +20,27 @@ class AirBnb < Sinatra::Base
   end
 
   post '/myspaces' do
-    space = Space.create(params)
+    space = Space.create(property: params[:property])
+    user = session[:user_id]
     redirect '/myspaces'
   end
 
   get '/signup' do
-    erb(:signup)
+    erb(:'/users/signup')
   end
 
   post '/signup' do
-    User.create(params)
-    redirect('/signup-success')
+    @user = User.new(params)
+    if @user.save
+      session[:user_id] = @user.id
+      redirect('/myspaces')
+    else
+      puts "Email already exists"
+    end
   end
 
-  get '/signup-success' do
-    erb(:'signup-success')
+  get '/login' do
+    erb(:'/sessions/new')
   end
 
   run! if app_file == $0
