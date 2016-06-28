@@ -1,4 +1,3 @@
-
 source "https://rubygems.org"
 
 ruby '2.3.1' || ENV['CUSTOM_RUBY_VERSION']

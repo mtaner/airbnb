@@ -20,5 +20,18 @@ class AirBnb < Sinatra::Base
     redirect '/myspaces'
   end
 
+  get '/signup' do
+    erb(:signup)
+  end
+
+  post '/signup' do
+    User.create(params)
+    redirect('/signup-success')
+  end
+
+  get '/signup-success' do
+    erb(:'signup-success')
+  end
+
   run! if app_file == $0
 end
