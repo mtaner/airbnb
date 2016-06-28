@@ -16,13 +16,9 @@ class AirBnb < Sinatra::Base
   end
 
   post '/myspaces' do
-    space = Space.create(property: params[:property])
+    space = Space.create(params)
     redirect '/myspaces'
   end
 
-
-
-
-  # start the server if ruby file executed directly
   run! if app_file == $0
 end
