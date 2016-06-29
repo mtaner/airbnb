@@ -32,9 +32,10 @@ feature 'Adding a space' do
 
   scenario 'I can add a price per night to my space when i post it' do
     price = 60.5
+    signup
     visit '/myspaces/new'
     fill_in 'name', with: 'sample space name'
-    fill_in 'price', with: price 
+    fill_in 'price', with: price
     click_button("Add space")
     expect(page).to have_content(price)
   end
