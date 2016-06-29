@@ -1,9 +1,12 @@
 ENV['RACK_ENV'] ||= 'development'
 
 require 'sinatra/base'
+require 'sinatra/flash'
 require_relative 'data_mapper_setup'
 
 class AirBnb < Sinatra::Base
+  register Sinatra::Flash
+  
   get '/' do
     'Hello AirBnb!'
   end
@@ -14,17 +17,18 @@ class AirBnb < Sinatra::Base
 
   get '/myspaces' do
     @spaces = Space.all
-    p '======================2'
-    p @spaces
     erb :'/spaces/index'
   end
 
   post '/myspaces' do
-    # what is this space variable for
-    space = Space.create(params)
-p "====================1"
-    p params
-    redirect '/myspaces'
+    # what is this space variable for - you could just have Space.create(safe_params(params))
+    @space = Space.new(safe_params(params))
+    if @space.save
+      redirect '/myspaces'
+    else
+      flash.next[:errors] = @space.errors.full_messages
+      redirect 'myspaces/new'
+    end
   end
 
   get '/signup' do
@@ -38,6 +42,13 @@ p "====================1"
 
   get '/signup-success' do
     erb(:'signup-success')
+  end
+
+  def safe_params(params)
+    {name: params[:name],
+    price: params[:price],
+    description: params[:description],
+    start_date: params[:start_date]}
   end
 
   run! if app_file == $0

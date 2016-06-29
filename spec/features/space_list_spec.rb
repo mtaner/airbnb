@@ -24,7 +24,7 @@ feature 'Adding a space' do
     description = 'sample space description'
     visit '/myspaces/new'
     fill_in 'name', with: 'sample space name'
-    fill_in 'description', with: description 
+    fill_in 'description', with: description
     click_button("Add space")
     expect(page).to have_content(description)
   end
@@ -33,7 +33,7 @@ feature 'Adding a space' do
     price = 60.5
     visit '/myspaces/new'
     fill_in 'name', with: 'sample space name'
-    fill_in 'price', with: price 
+    fill_in 'price', with: price
     click_button("Add space")
     expect(page).to have_content(price)
   end
@@ -46,6 +46,14 @@ feature 'Adding a space' do
     click_button("Add space")
     expect(page).to have_content('From: 2016-10-01')
     expect(page).to have_content('To: 2016-11-01')
+  end
+
+  scenario 'I cannot enter a space if I have not entered a correct date range' do
+    visit '/myspaces/new'
+    fill_in 'name', with: 'sample space name'
+    fill_in 'start_date', with: ''
+    click_button('Add space')
+    expect(page).to have_content('Please enter a valid date')
   end
 
 end
