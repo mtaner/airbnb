@@ -1,5 +1,7 @@
 <h1>Add a new space</h1>
 
+<% if current_user %>
+
 <form action="/myspaces" method="post">
   <label for="name">
     Space Name:
@@ -18,12 +20,12 @@
     <input type="date" id="start_date" name="start_date" />
   </label>
   <br>
-
+<!--
   <label for="end_date">
     Last date that space is available:
     <input type="date" id="end_date" name="end_date" />
   </label>
-  <br>
+  <br> -->
 
   <label for="description">
     Space Description:<br>
@@ -34,3 +36,12 @@
   <input type="submit" value="Add space" >
 
 </form>
+
+<% else %>
+You are not logged in. If you don't have an account please sign up.
+<form action='/signup' method="post">
+  <input type="submit" value="Sign up">
+
+</form>
+
+<% end %>

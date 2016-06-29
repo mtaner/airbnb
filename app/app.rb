@@ -6,9 +6,13 @@ require_relative 'data_mapper_setup'
 
 class AirBnb < Sinatra::Base
   register Sinatra::Flash
-  
+  use Rack::MethodOverride
+
+  enable :sessions
+  set :sessions_secret, 'super secret'
+
   get '/' do
-    'Hello AirBnb!'
+    redirect('/signup')
   end
 
   get '/myspaces/new' do
@@ -21,8 +25,9 @@ class AirBnb < Sinatra::Base
   end
 
   post '/myspaces' do
-    # what is this space variable for - you could just have Space.create(safe_params(params))
-    @space = Space.new(safe_params(params))
+    user = User.first(id: session[:user_id])
+    params[:user] = user
+    @space = Space.new(params)
     if @space.save
       redirect '/myspaces'
     else
@@ -32,16 +37,46 @@ class AirBnb < Sinatra::Base
   end
 
   get '/signup' do
-    erb(:signup)
+    erb(:'/users/signup')
   end
 
   post '/signup' do
-    User.create(params)
-    redirect('/signup-success')
+    @user = User.new(params)
+    if @user.save
+      session[:user_id] = @user.id
+      redirect('/myspaces')
+    else
+      flash.next[:errors] = @user.errors.full_messages
+      redirect('/signup')
+    end
   end
 
-  get '/signup-success' do
-    erb(:'signup-success')
+  get '/sessions' do
+    erb(:'/sessions/new')
+  end
+
+  delete '/sessions' do
+    session.clear
+    flash.next[:notice] = 'You have signed out'
+    redirect '/'
+  end
+
+  post '/sessions' do
+    user = User.authenticate(params[:email], params[:password])
+    if user
+      session[:user_id] = user.id
+      redirect('/myspaces')
+    else
+      flash.now[:errors] = ['The email or password is incorrect']
+      erb(:'/sessions/new')
+    end
+  end
+
+
+  helpers do
+    def current_user
+      @current_user ||= User.get(session[:user_id])
+    end
   end
 
   def safe_params(params)

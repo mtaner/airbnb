@@ -16,4 +16,6 @@ class Space
   #   p '====================3'
   # end
 
+  belongs_to :user, required: false
+
 end
