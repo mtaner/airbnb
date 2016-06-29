@@ -3,11 +3,16 @@
 <% if current_user %>
 
 <form action="/myspaces" method="post">
-  <label for="space">
+  <label for="name">
     Space Name:
-    <input type="text" name="name" />
+    <input type="text" id="name" name="name" />
   </label>
-
+  <br>
+  <label for="description">
+    Space Description:<br>
+    <textarea rows="4" cols="50" name="description" id="description"></textarea>
+  </label>
+  <br>
   <input type="submit" value="Add space" >
 
 </form>
