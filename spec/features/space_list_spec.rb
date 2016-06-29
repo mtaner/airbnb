@@ -22,9 +22,10 @@ feature 'Adding a space' do
 
   scenario 'I can add a description to my space, when i post it' do
     description = 'sample space description'
+    signup
     visit '/myspaces/new'
     fill_in 'name', with: 'sample space name'
-    fill_in 'description', with: description 
+    fill_in 'description', with: description
     click_button("Add space")
     expect(page).to have_content(description)
   end

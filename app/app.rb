@@ -26,7 +26,6 @@ class AirBnb < Sinatra::Base
 
   post '/myspaces' do
     space = Space.create(params)
-    user = session[:user_id]
     redirect '/myspaces'
   end
 
@@ -40,8 +39,8 @@ class AirBnb < Sinatra::Base
       session[:user_id] = @user.id
       redirect('/myspaces')
     else
-      flash.now[:errors] = @user.errors.full_messages
-      erb(:'users/signup')
+      flash.next[:errors] = @user.errors.full_messages
+      redirect('/signup')
     end
   end
 
