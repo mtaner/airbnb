@@ -1,0 +1,40 @@
+<html>
+<head>
+</head>
+
+<body>
+
+  <h1>WELCOME TO MAKERS BNB</h1>
+
+  <div id='signup'>
+
+    <form action='/signup' method='post'>
+
+      <label for='email'>Email: </label>
+      <input id='email' name='email' type='text' required>
+
+      <label for='password'>Password: </label>
+      <input id='password' name='password' type='password' required>
+
+      <label for='password_confirmation'> Password confirmation:</label>
+      <input id='password_confirmation' name='password_confirmation' type='password' required>
+
+      <input type='submit' value='Submit'>
+
+    </form>
+
+
+  </div>
+
+  <div id='login' >
+    <form action='/sessions' method="get">
+      <label for="login">Click here if you are an existing user:</label>
+      <input type="submit" value="Login">
+
+    </form>
+
+  </div>
+
+</body>
+
+</html>

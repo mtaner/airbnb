@@ -1,5 +1,7 @@
 <h1>Add a new space</h1>
 
+<% if current_user %>
+
 <form action="/myspaces" method="post">
   <label for="space">
     Space Name:
@@ -9,3 +11,12 @@
   <input type="submit" value="Add space" >
 
 </form>
+
+<% else %>
+You are not logged in. If you don't have an account please sign up.
+<form action='/signup' method="post">
+  <input type="submit" value="Sign up">
+
+</form>
+
+<% end %>
