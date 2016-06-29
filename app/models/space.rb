@@ -7,9 +7,7 @@ class Space
   property :name, String
   property :description, String
   property :price, String
-  property :start_date, Date
-  property :end_date, Date
+  property :start_date, Date, required: false
+  property :end_date, Date, required: false
 
-  validates_format_of :start_date, as: Date
-  validates_format_of :end_date, as: Date
 end
