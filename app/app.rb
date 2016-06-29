@@ -25,6 +25,8 @@ class AirBnb < Sinatra::Base
   end
 
   post '/myspaces' do
+    user = User.first(id: session[:user_id])
+    params[:user] = user
     space = Space.create(params)
     redirect '/myspaces'
   end

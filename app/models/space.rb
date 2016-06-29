@@ -8,4 +8,6 @@ class Space
   property :description, String
   property :price, String
 
+  belongs_to :user, required: false
+
 end
