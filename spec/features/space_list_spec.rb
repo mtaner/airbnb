@@ -17,7 +17,7 @@ feature 'Adding a space' do
   scenario 'I can add multiple spaces to my page' do
     signup
     add_space
-    add_space('Kensington')
+    add_space(name: 'Kensington')
     expect(page).to have_content('Holborn')
     expect(page).to have_content('Kensington')
   end

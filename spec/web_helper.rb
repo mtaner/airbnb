@@ -1,7 +1,8 @@
-def add_space( name = 'One bedroom flat in Holborn' )
+def add_space(args = {})
+  args[:name] ||= 'One bedroom flat in Holborn'
 	signup
 	visit '/myspaces/new'
-	fill_in 'name', with: name
+	fill_in 'name', with: args[:name]
   fill_in 'start_date', with: '01/01/2011'
 	click_button("Add space")
 end
