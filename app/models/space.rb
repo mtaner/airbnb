@@ -9,12 +9,8 @@ class Space
   property :name, String
   property :description, String
   property :price, String
-  property :start_date, Date, required: false
-  # property :end_date, Date, required: false
-
-  # def start_date(start_date)
-  #   p '====================3'
-  # end
+  property :start_date, Date, required: true
+  property :end_date, Date, required: true
 
   belongs_to :user, required: false
 
