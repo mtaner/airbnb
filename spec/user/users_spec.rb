@@ -1,4 +1,3 @@
-require 'data_mapper'
 
 describe User do
 

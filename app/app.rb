@@ -27,8 +27,13 @@ class AirBnb < Sinatra::Base
   post '/myspaces' do
     user = User.first(id: session[:user_id])
     params[:user] = user
-    space = Space.create(params)
-    redirect '/myspaces'
+    @space = Space.new(params)
+    if @space.save
+      redirect '/myspaces'
+    else
+      flash.next[:errors] = @space.errors.full_messages
+      redirect 'myspaces/new'
+    end
   end
 
   get '/signup' do
@@ -72,6 +77,13 @@ class AirBnb < Sinatra::Base
     def current_user
       @current_user ||= User.get(session[:user_id])
     end
+  end
+
+  def safe_params(params)
+    {name: params[:name],
+    price: params[:price],
+    description: params[:description],
+    start_date: params[:start_date]}
   end
 
   run! if app_file == $0
