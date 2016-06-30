@@ -73,13 +73,15 @@ class AirBnb < Sinatra::Base
   end
 
   post '/requests/new' do
-    @request = RequestSpace.create(params)
-    p '================='
-    p params
-    p @request
-    p RequestSpace.all
-    session[:request_id] = @request.id
-    redirect('/requests')
+    params[:user_id] = session[:user_id]
+    request = RequestSpace.create(params)
+    if request.save
+      flash.next[:request] = "Request has been sent for listing: '#{request.space.name}'"
+      redirect('/myspaces')
+    else
+      flash.next[:errors] = request.errors.full_messages
+      redirect('/myspaces')
+    end
   end
 
   get '/requests' do

@@ -29,10 +29,9 @@
 		</div>
 		<% end %>
 
-    <% if current_request%>
-      <div id='user request'>
-
-        Request has been sent for property
+    <% if flash[:request] %>
+      <div id='user_request'>
+        <%= flash[:request] %>
       </div>
     <% end %>
 
