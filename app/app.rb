@@ -34,7 +34,7 @@ class AirBnb < Sinatra::Base
       if !@space.errors.full_messages.empty?
         flash.next[:errors] = @space.errors.full_messages
       else
-        flash.keep[:notice] = 'End date must be after start date or the start date is in the past'
+        flash.keep[:errors] = ['End date must be after start date or the start date is in the past']
       end
       redirect 'myspaces/new'
     end
