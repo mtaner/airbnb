@@ -28,8 +28,4 @@ class Space
     @end_date > @start_date ? true : [false, 'End date must be after start date']
   end
   
-  def date_check(start_date, end_date)
-    end_date > start_date if Time.parse(start_date) >= Time.now
-  end
-
 end
