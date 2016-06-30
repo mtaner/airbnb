@@ -8,8 +8,8 @@ def add_space(args = {})
 	click_button("Add space")
 end
 
-def signup(email: 'diamond.oliver2@gmail.com', password: 'waffles', password_confirmation: 'waffles')
-  visit('/signup');
+def signup(email: 'beta@gmail.com', password: 'waffles', password_confirmation: 'waffles')
+  visit('/signup')
   fill_in('email', with: email)
   fill_in('password', with: password)
   fill_in('password_confirmation', with: password_confirmation)

@@ -41,12 +41,12 @@ class AirBnb < Sinatra::Base
   end
 
   post '/signup' do
-    @user = User.new(params)
-    if @user.save
-      session[:user_id] = @user.id
+    user = User.new(params)
+    if user.save
+      session[:user_id] = user.id
       redirect('/myspaces')
     else
-      flash.next[:errors] = @user.errors.full_messages
+      flash.next[:errors] = user.errors.full_messages
       redirect('/signup')
     end
   end
@@ -72,18 +72,29 @@ class AirBnb < Sinatra::Base
     end
   end
 
+  post '/requests/new' do
+    @request = RequestSpace.create(params)
+    p '================='
+    p params
+    p @request
+    p RequestSpace.all
+    session[:request_id] = @request.id
+    redirect('/requests')
+  end
+
+  get '/requests' do
+    @requests = RequestSpace.all
+    erb(:'/requests/index')
+  end
 
   helpers do
     def current_user
       @current_user ||= User.get(session[:user_id])
     end
-  end
 
-  def safe_params(params)
-    {name: params[:name],
-    price: params[:price],
-    description: params[:description],
-    start_date: params[:start_date]}
+    def current_request
+      @current_request ||= RequestSpace.get(session[:request_id])
+    end
   end
 
   run! if app_file == $0

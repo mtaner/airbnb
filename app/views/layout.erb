@@ -28,6 +28,14 @@
 			<%= flash[:notice] %>
 		</div>
 		<% end %>
-		<%= yield %>
+
+    <% if current_request%>
+      <div id='user request'>
+
+        Request has been sent for property
+      </div>
+    <% end %>
+
+    <%= yield %>
 	</body>
 </html>
