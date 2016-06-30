@@ -1,6 +1,3 @@
-require 'spec_helper'
-
-
 feature 'Adding a space' do
   scenario 'I can fill in a form to add and name a space' do
     add_space

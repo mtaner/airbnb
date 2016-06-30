@@ -4,11 +4,8 @@ require File.join(File.dirname(__FILE__), '..', './app/app.rb')
 
 require 'capybara'
 require 'capybara/rspec'
-require './app/app'
 require 'rspec'
 require 'database_cleaner'
-require './app/models/space'
-require './app/models/user'
 require_relative 'web_helper'
 
 Capybara.app = AirBnb

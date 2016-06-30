@@ -2,13 +2,20 @@
 
 <ul id='spaces'>
   <% @spaces.each do |space| %>
-  <li>
-    Space Name: <%= space.name %> <br>
-    Space Price: <%= space.price %> <br>
-    Space Description: <%= space.description %> <br>
-    Space available From: <%= space.start_date %>
-    Space available To: <%= space.end_date %>
-    Posted by: <%= space.user.email %>
-  </li>
+    <li class='space_<%=space.id%>'>
+      Space Name: <%= space.name %> <br>
+      Space Price: <%= space.price %> <br>
+      Space Description: <%= space.description %> <br>
+      Space available From: <%= space.start_date %> <br>
+      Space available To: <%= space.end_date %> <br>
+      Posted by: <%= space.user.email %>
+
+      <form action="/requests/new" method="post">
+          <input type="hidden" name="space_id" value="<%=space.id%>">
+          <input type="date" name="requested_date">
+          <input type="submit" value="Request space">
+      </form>
+
+    </li>
   <% end %>
 </ul>
