@@ -1,7 +1,7 @@
 def add_space(args = {})
   args[:name] ||= 'One bedroom flat in Holborn'
-  args[:start_date] ||= '01/01/2011'
-  args[:end_date] ||= '01/11/2011'
+  args[:start_date] ||= '01/10/2016'
+  args[:end_date] ||= '01/11/2016'
 	signup
 	visit '/myspaces/new'
   args.each { |k,v| fill_in(k.to_s, with: v) }
