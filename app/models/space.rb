@@ -14,4 +14,9 @@ class Space
 
   belongs_to :user, required: false
 
+
+  def date_check(start_date, end_date)
+    end_date > start_date if Time.parse(start_date) >= Time.now
+  end
+
 end
