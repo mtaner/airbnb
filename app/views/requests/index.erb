@@ -1,0 +1,16 @@
+
+<div id='requests_received'>
+	<h1>My Requests</h1>
+
+	<ul id='requests'>
+	  <% @requests_for_user.each do |request| %>
+			<a href="/request?request_id=<%= request.id %>">
+		    <li class='request_<%= request.id %>'>
+		      Request Name: <%= request.space.name %> <br>
+		      Requested Date: <%= request.requested_date %> <br>
+		      Requested by: <%= request.user.email %>
+		    </li>
+			</a>
+	  <% end %>
+	</ul>
+</div>

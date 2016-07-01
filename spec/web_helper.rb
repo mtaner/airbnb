@@ -15,3 +15,10 @@ def signup(email: 'beta@gmail.com', password: 'waffles', password_confirmation: 
   fill_in('password_confirmation', with: password_confirmation)
   click_button('Submit')
 end
+
+def login(email: 'beta@gmail.com', password: 'waffles')
+  visit('/sessions')
+  fill_in('email', with: email)
+  fill_in('password', with: password)
+  click_button('Login')
+end
