@@ -93,6 +93,18 @@ class AirBnb < Sinatra::Base
     erb(:'/requests/index')
   end
 
+  get '/request' do
+    @this_request = RequestSpace.first(id: params[:request_id])
+    erb(:'/request/index')
+  end
+
+  post '/request/approval' do
+    request = RequestSpace.first(id: params[:request_id])
+    request.update(approved: !!params[:approval] )
+    flash.next[:notice] = "#{request.space.name} #{(params[:approval] ? 'approved' : 'rejected')}"
+    redirect("/request?request_id=#{params[:request_id]}")
+  end
+
   helpers do
     def current_user
       @current_user ||= User.get(session[:user_id])
