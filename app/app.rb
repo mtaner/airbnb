@@ -27,13 +27,7 @@ class AirBnb < Sinatra::Base
   post '/myspaces' do
     user = User.first(id: session[:user_id])
     params[:user] = user
-    @space = Space.new(params)
-    if @space.save
-      redirect '/myspaces'
-    else
-      flash.next[:errors] = @space.errors.full_messages
-      redirect 'myspaces/new'
-    end
+    db_try_entry(Space, params, '/myspaces', '/myspaces/new')
   end
 
   get '/signup' do
@@ -41,13 +35,8 @@ class AirBnb < Sinatra::Base
   end
 
   post '/signup' do
-    user = User.new(params)
-    if user.save
+    db_try_entry(User, params, '/myspaces', '/signup') do |user|
       session[:user_id] = user.id
-      redirect('/myspaces')
-    else
-      flash.next[:errors] = user.errors.full_messages
-      redirect('/signup')
     end
   end
 
@@ -74,13 +63,8 @@ class AirBnb < Sinatra::Base
 
   post '/requests/new' do
     params[:user_id] = session[:user_id]
-    request = RequestSpace.create(params)
-    if request.save
+    db_try_entry(RequestSpace, params, '/myspaces', '/myspaces') do |request|
       flash.next[:request] = "Request has been sent for listing: '#{request.space.name}'"
-      redirect('/myspaces')
-    else
-      flash.next[:errors] = request.errors.full_messages
-      redirect('/myspaces')
     end
   end
 
@@ -94,6 +78,18 @@ class AirBnb < Sinatra::Base
       @current_user ||= User.get(session[:user_id])
     end
   end
+
+  def db_try_entry(dm_class, params, success_route, failure_route, &block)
+    item = dm_class.new(params)
+    if item.save
+      yield(item) if block_given?
+      redirect(success_route)
+    else
+      flash.next[:errors] = item.errors.full_messages
+      redirect(failure_route)
+    end
+  end
+      
 
   run! if app_file == $0
 end
