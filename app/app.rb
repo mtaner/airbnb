@@ -85,7 +85,7 @@ class AirBnb < Sinatra::Base
   end
 
   get '/requests' do
-    @requests = RequestSpace.all(user_id: session[:user_id]))
+    @requests = RequestSpace.all(user_id: session[:user_id])
     erb(:'/requests/index')
   end
 
