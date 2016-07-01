@@ -8,7 +8,13 @@
       Space Description: <%= space.description %> <br>
       Space available From: <%= space.start_date %> <br>
       Space available To: <%= space.end_date %> <br>
-      Posted by: <%= space.user.email %>
+      Posted by: <%= space.user.email %> <br>
+      Booked for the following dates: <br>
+      <% RequestSpace.all(space_id: space.id).each do |request| %>
+        <% if request.approved %>
+        Date: <%= request.requested_date %>
+        <% end %>
+      <% end %>
 
       <form action="/requests/new" method="post">
           <input type="hidden" name="space_id" value="<%=space.id%>">
