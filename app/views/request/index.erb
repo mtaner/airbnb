@@ -1,0 +1,16 @@
+
+Request Name: <%= @this_request.space.name %> <br>
+Requested Date: <%= @this_request.requested_date %> <br>
+Requested by: <%= @this_request.user.email %>
+
+<form action="/request/approval" method="post">
+	<input type="hidden" name="request_id" value="<%= @this_request.id %>">
+	<input type="hidden" name="approval" value="true">
+  <input type="submit" value="Approve">
+</form>
+
+<form action="/request/approval" method="post">
+	<input type="hidden" name="request_id" value="<%= @this_request.id %>">
+<!-- 	<input type="hidden" name="approval" value="false"> -->
+  <input type="submit" value="Reject">
+</form>
