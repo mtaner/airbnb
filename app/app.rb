@@ -28,14 +28,10 @@ class AirBnb < Sinatra::Base
     user = User.first(id: session[:user_id])
     params[:user] = user
     @space = Space.new(params)
-    if @space.save && @space.date_check(params[:start_date], params[:end_date])
+    if @space.save
       redirect '/myspaces'
     else
-      if !@space.errors.full_messages.empty?
-        flash.next[:errors] = @space.errors.full_messages
-      else
-        flash.keep[:notice] = 'End date must be after start date or the start date is in the past'
-      end
+      flash.next[:errors] = @space.errors.full_messages
       redirect 'myspaces/new'
     end
   end
