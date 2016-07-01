@@ -1,6 +1,25 @@
-<h1>My Requests</h1>
 
-<ul id='requests'>
+<div id='requests_received'>
+	<h1>Requests received</h1>
+
+	<ul class='requests'>
+	  <% @requests_for_user.each do |request| %>
+			<a href="/request?request_id=<%= request.id %>">
+		    <li class='request_<%= request.id %>'>
+		      Request Name: <%= request.space.name %> <br>
+		      Requested Date: <%= request.requested_date %> <br>
+		      Requested by: <%= request.user.email %>
+		    </li>
+			</a>
+	  <% end %>
+	</ul>
+</div>
+
+
+<div id='requests_made'>
+<h1>Requests made</h1>
+
+<ul class='requests'>
 	<% @requests.each do |request| %>
 		<li class='request_<%=request.id%>'>
 		Space Name: <%= request.space.name %> <br>
@@ -8,3 +27,4 @@
 		</li>
 	<% end %>
 </ul>
+</div>
