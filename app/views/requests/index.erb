@@ -1,0 +1,10 @@
+<h1>My Requests</h1>
+
+<ul id='requests'>
+	<% @requests.each do |request| %>
+		<li class='request_<%=request.id%>'>
+		Space Name: <%= request.space.name %> <br>
+		Date requested: <%= request.requested_date %> <br>
+		</li>
+	<% end %>
+</ul>
