@@ -1,6 +1,3 @@
-require 'spec_helper'
-
-
 feature 'Sign Up' do
   scenario 'enters correct details and account is created' do
     signup
@@ -30,4 +27,28 @@ feature 'Sign Up' do
     expect(current_path).to eq('/signup')
     expect(page).to have_content('Email must not be blank')
   end
+
+  scenario 'user can sign out while being signed in' do
+    signup
+    click_button('Sign out')
+    expect(page).to have_content('You have signed out')
+  end
+end
+
+feature 'User login' do
+  let!(:user) do
+    User.create( email: 'diamond.oliver@gmail.com',
+                 password: 'waffle',
+                 password_confirmation: 'waffle')
+  end
+
+  scenario 'with correct credentials' do
+    visit('/sessions')
+    fill_in(:email, with: 'diamond.oliver@gmail.com')
+    fill_in(:password, with: 'waffle')
+    click_button('Login')
+    expect(current_path).to eq('/myspaces')
+    expect(page).to have_content "Welcome, #{user.email}"
+  end
+
 end

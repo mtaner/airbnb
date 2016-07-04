@@ -8,7 +8,7 @@ feature 'viewing availability' do
 		click_button('Sign out')
 		login
 		visit('/requests')
-		click_link('request_5')
+		click_link('request_6')
 		click_button('Approve')
 	end
 

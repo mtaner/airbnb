@@ -1,3 +1,0 @@
-# describe Space do
-#
-# end
