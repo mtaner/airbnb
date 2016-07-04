@@ -24,32 +24,63 @@ class AirBnb < Sinatra::Base
     erb :'/spaces/index'
   end
 
-  post '/myspaces' do
-    user = User.first(id: session[:user_id])
-    params[:user] = user
-    @space = Space.new(params)
-    if @space.save
-      redirect '/myspaces'
-    else
-      flash.next[:errors] = @space.errors.full_messages
-      redirect 'myspaces/new'
-    end
-  end
-
   get '/signup' do
     erb(:'/users/signup')
   end
 
+  post '/myspaces' do
+    user = User.first(id: session[:user_id])
+    params[:user] = user
+    refactor_try(Space, params, 'myspaces/new')
+#    @space = Space.new(params)
+#    if @space.save
+#      redirect '/myspaces'
+#    else
+#      flash.next[:errors] = @space.errors.full_messages
+#      redirect 'myspaces/new'
+#    end
+  end
+
   post '/signup' do
-    user = User.new(params)
-    if user.save
+    refactor_try(User, params, '/signup') do |user|
       session[:user_id] = user.id
+    end
+#    user = User.new(params)
+#    if user.save
+#      session[:user_id] = user.id
+#      redirect('/myspaces')
+#    else
+ #     flash.next[:errors] = user.errors.full_messages
+ #     redirect('/signup')
+ #   end
+  end
+
+  post '/requests/new' do
+    params[:user_id] = session[:user_id]
+    refactor_try(RequestSpace, params, '/myspaces') do |request| 
+      flash.next[:request] = "Request has been sent for listing: '#{request.space.name}'"
+    end
+#    request = RequestSpace.new(params)
+#    if request.save
+#      flash.next[:request] = "Request has been sent for listing: '#{request.space.name}'"
+#      redirect('/myspaces')
+#    else
+#      flash.next[:errors] = request.errors.full_messages
+#      redirect('/myspaces')
+#    end
+  end
+
+  def refactor_try(dm_class, params, failed_redirect, &block)
+    something = dm_class.new(params)
+    if(something.save)
+      yield(something) if block_given?
       redirect('/myspaces')
     else
-      flash.next[:errors] = user.errors.full_messages
-      redirect('/signup')
+      flash.next[:errors] = something.errors.full_messages
+      redirect(failed_redirect)
     end
   end
+
 
   get '/sessions' do
     erb(:'/sessions/new')
@@ -69,18 +100,6 @@ class AirBnb < Sinatra::Base
     else
       flash.now[:errors] = ['The email or password is incorrect']
       erb(:'/sessions/new')
-    end
-  end
-
-  post '/requests/new' do
-    params[:user_id] = session[:user_id]
-    request = RequestSpace.new(params)
-    if request.save
-      flash.next[:request] = "Request has been sent for listing: '#{request.space.name}'"
-      redirect('/myspaces')
-    else
-      flash.next[:errors] = request.errors.full_messages
-      redirect('/myspaces')
     end
   end
 
